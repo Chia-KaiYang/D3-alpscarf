@@ -3,15 +3,15 @@
 `alpscarf` is an D3 package for visualizing AOI visits in augmented scarf plots.
 The visualization is originally developed (but not limited) in the context of eye-tracking research.
 
-This D3 code is still understand construction, especially on the interaction part.
+While the D3 code is still under construction, the current version gives a glimps of the kind of intereaction in the tool.
 
 ## Interact with Alpscarf
 
-To see how the visualization works, here is a on [bl.ocks.org](https://bl.ocks.org/Chia-KaiYang/raw/cd34f16fd1a9df27a13a59045bd40c4d/)
+To see how the visualization works, here is a runnable web application on [bl.ocks.org](https://bl.ocks.org/Chia-KaiYang/raw/cd34f16fd1a9df27a13a59045bd40c4d/)
 
 ## Usage
 
-On top there is a legend. Users can (de)select the AOI(s) of interest from the legend. All the corresponding parts of Alpscarf will be highlighted. Users can also directly perform the same interaction on Alpscarf.
+On top there is a legend. Users can (de)select the AOI(s) of interest by clicking the items in the legend. All the corresponding parts of Alpscarf will be highlighted. Users can also directly perform the same interaction on Alpscarf.
 
 ## How to cite
 
@@ -47,4 +47,4 @@ In bibtex:
 ## See also
 
 * Paper and video previews [Alpscarf website](https://zpac.ch/alpscarf)
-# R package of Alpscarf [R package](https://github.com/Chia-KaiYang/alpscarf)
+* R package of Alpscarf [R package](https://github.com/Chia-KaiYang/alpscarf)
