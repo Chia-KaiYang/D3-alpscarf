@@ -105,7 +105,8 @@ export const alpGen = (selection, props) => {
         .merge(groupText)
         .transition().duration(1000)
             .attr('x', 0)
-            .style("fill-opacity", 1);
+            .style("fill-opacity", 1)
+    ;
 
 
     // todo: fade-out of text (p_name) doesn't work
