@@ -12,7 +12,7 @@ To experience how the interactive visualization work, here is a runnable web app
 
 ## Usage
 
-At the top of the visualization, there is a legend. Users can (de)select the AOIs of interest by clicking the key in the legend. The corresponding parts of all Alpscarf visualizations are also highlighted simultaneously. Users can click on Alpscarf (to select/deselect the AOIs of interest), as well as panning (click-and-drag), zooming (spin the wheel) and displaying tooltips (hover over).
+At the top of the visualization, there is a legend. Users can (de)select the AOIs of interest by clicking the key in the legend. The corresponding parts of all Alpscarf visualizations are also highlighted simultaneously. Users can click on Alpscarf to select/deselect the AOIs of interest, as well as panning (click-and-drag), zooming (spin the wheel), and displaying tooltips (hover over).
 
 ## How to cite
 
