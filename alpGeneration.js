@@ -99,11 +99,12 @@ export const alpGen = (selection, props) => {
             .append('text')
             .attr("dy", ".35em")
             .text(pName)
-            .attr('x', 200)
+            .attr('x', 10)
+            .attr('y', alpVizHeight / 2)
             .style("fill-opacity", 1e-6)
         .merge(groupText)
         .transition().duration(1000)
-            .attr('x', 100)
+            .attr('x', 0)
             .style("fill-opacity", 1);
 
 
