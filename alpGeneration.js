@@ -12,7 +12,8 @@ export const alpGen = (selection, props) => {
         alpVizHeight,
         setSelectedAOI,
         selectedAOI,
-        alp_en
+        alp_en,
+        normalized_view
     } = props;
 
     // select the data of the participant specified
@@ -23,22 +24,24 @@ export const alpGen = (selection, props) => {
     //const maxReReadingLength = d3.max(dataVis, d => d.re_reading_bar_length);
     const maxSeqLength = d3.max(data, d => d.seq_bar_length);
     const maxReReadingLength = d3.max(data, d => d.re_reading_bar_length);
-    const yPosition = d => d.seq_bar_length + maxReReadingLength;
 
+    const yPosition = d => d.seq_bar_length + maxReReadingLength;
     const scarfBarYPosition = d => alp_en
             ? yScale(yPosition(d))
             : yScale(maxReReadingLength + 1);
-
     const scarfBarHeight = d => alp_en
             ? alpVizHeight - yScale(yValue(d))
             : alpVizHeight - yScale(1);
 
+    const xDomain = normalized_view
+        ? dataVis.map(xValue)
+        : d3.range(0, d3.max(data, xValue));
+
     const yScale = d3.scaleLinear()
         .domain([0, maxSeqLength + maxReReadingLength])
         .range([alpVizHeight, 0]);
-
     const xScale = d3.scaleBand()
-        .domain(dataVis.map(xValue))
+        .domain(xDomain)
         .range([0, alpVizWidth])
         .padding(0);
 

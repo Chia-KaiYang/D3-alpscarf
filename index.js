@@ -105,7 +105,8 @@ const render = () => {
                 alpVizHeight: alpVizHeight - alpSpacing,
                 setSelectedAOI,
                 selectedAOI,
-                alp_en: true
+                alp_en: true,
+                normalized_view: false
             });
     });
 
