@@ -11,7 +11,8 @@ export const alpGen = (selection, props) => {
         alpVizWidth,
         alpVizHeight,
         setSelectedAOI,
-        selectedAOI
+        selectedAOI,
+        alp_en
     } = props;
 
     // select the data of the participant specified
@@ -23,6 +24,14 @@ export const alpGen = (selection, props) => {
     const maxSeqLength = d3.max(data, d => d.seq_bar_length);
     const maxReReadingLength = d3.max(data, d => d.re_reading_bar_length);
     const yPosition = d => d.seq_bar_length + maxReReadingLength;
+
+    const scarfBarYPosition = d => alp_en
+            ? yScale(yPosition(d))
+            : yScale(maxReReadingLength + 1);
+
+    const scarfBarHeight = d => alp_en
+            ? alpVizHeight - yScale(yValue(d))
+            : alpVizHeight - yScale(1);
 
     const yScale = d3.scaleLinear()
         .domain([0, maxSeqLength + maxReReadingLength])
@@ -36,14 +45,13 @@ export const alpGen = (selection, props) => {
     const groups = selection.selectAll('g').data(dataVis);
     const groupEnter =
         groups.enter().append('g')
-            .attr('class', 'tick')
-        ; // make a function for enter so that circles can re-use
+            .attr('class', 'tick'); // make a function for enter so that circles can re-use
     groupEnter
             .attr('transform', `translate(${pNameOffset}, 0)`)
         .merge(groups)
-            .on('click', d => setSelectedAOI(d.AOI))
+            //.on('click', d => setSelectedAOI(d.AOI))
         .transition().duration(1000)
-        .attr('transform', `translate(${pNameOffset}, 0)`);
+            .attr('transform', `translate(${pNameOffset}, 0)`);
     groups.exit()
         .transition().duration(1000)
         .remove();
@@ -51,7 +59,6 @@ export const alpGen = (selection, props) => {
     // TODO: transition is working; figure out how to avoid creating a new variable groupsRect
     //const groupsRect = groups.select('.bars');
     const groupsRect = selection.selectAll('rect').data(dataVis);
-
     groupsRect.exit()
         .transition().duration(1000)
         .attr('x', alpVizWidth)
@@ -60,14 +67,25 @@ export const alpGen = (selection, props) => {
     groupEnter
         .append('rect')
             .attr('class', 'bars')
-            .attr('y', d => yScale(yPosition(d)))
+            // play with animation; from scarf to Alpscarf
+            .attr('y', scarfBarYPosition)
+            //.attr('y', d =>
+            //    (selectedAOI.length > 0  && selectedAOI.includes(d.AOI))
+            //        ? yScale(yPosition(d))
+            //        : yScale(maxReReadingLength + 1)
+            //    )
+            .attr('height', scarfBarHeight)
+            //.attr('height', d =>
+            //    (selectedAOI.length > 0  && selectedAOI.includes(d.AOI))
+            //        ? alpVizHeight - yScale(yValue(d))
+            //        : alpVizHeight - yScale(1)
+            //    )
             //.attr('x', d => xScale(xValue(d)))
             .attr('x', alpVizWidth)
-            .attr('height', d => alpVizHeight - yScale(yValue(d)))
             .attr('width', xScale.bandwidth())
-        .merge(groups.select('rect'))
             .attr('stroke-width', '2')
-
+        .merge(groups.select('.bars'))
+            .on('click', d => setSelectedAOI(d.AOI))
             .classed('highlighted', d =>
                 //selectedAOI && selectedAOI === d.AOI
                 selectedAOI.length > 0  && selectedAOI.includes(d.AOI)
@@ -78,11 +96,21 @@ export const alpGen = (selection, props) => {
                     ? 1
                     : 0.2
                 )
-
         .transition().duration(1000)
-            .attr('height', d => alpVizHeight - yScale(yValue(d)))
+            // play with animation; from scarf to Alpscarf
+            .attr('y', scarfBarYPosition)
+            //.attr('y', d =>
+            //    (selectedAOI.length > 0  && selectedAOI.includes(d.AOI))
+            //        ? yScale(yPosition(d))
+            //        : yScale(maxReReadingLength + 1)
+            //    )
+            .attr('height', scarfBarHeight)
+            //.attr('height', d =>
+            //    (selectedAOI.length > 0  && selectedAOI.includes(d.AOI))
+            //        ? alpVizHeight - yScale(yValue(d))
+            //        : alpVizHeight - yScale(1)
+            //    )
             .attr('width', xScale.bandwidth())
-            .attr('y', d => yScale(yPosition(d)))
             .attr('x', d => xScale(xValue(d)))
             .attr('fill', d => palette(d.AOI))
         ;

@@ -11,6 +11,7 @@ const margin = {top: 200, right: 50, bottom: 50, left: 50};
 
 const alpVizWidth = width - margin.left - margin.right;
 let alpVizHeight;
+const alpSpacing = 10;
 
 // zooming and panning
 const zoomG = svg.append('g')
@@ -101,9 +102,10 @@ const render = () => {
                 pName: d,
                 pNameOffset: 50,
                 alpVizWidth,
-                alpVizHeight,
+                alpVizHeight: alpVizHeight - alpSpacing,
                 setSelectedAOI,
-                selectedAOI
+                selectedAOI,
+                alp_en: true
             });
     });
 
