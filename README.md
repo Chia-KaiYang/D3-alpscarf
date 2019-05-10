@@ -11,8 +11,9 @@ Find more information about Alpscrf at [R-alpscarf](https://github.com/Chia-KaiY
 To experience how the interactive visualization work, here is a runnable web application on [bl.ocks.org](https://bl.ocks.org/Chia-KaiYang/raw/cd34f16fd1a9df27a13a59045bd40c4d/)
 
 ## Usage
+At top there are three drop-down menus that allow users to specify visualization mode (e.g., alpscarf/traditional scarf, unnormalized/normalized view, transition-/duration-focus mode).
 
-At the top of the visualization, there is a legend. Users can (de)select the AOIs of interest by clicking the key in the legend. The corresponding parts of all Alpscarf visualizations are also highlighted simultaneously. Users can click on Alpscarf to select/deselect the AOIs of interest, as well as panning (click-and-drag), zooming (spin the wheel), and displaying tooltips (hover over).
+On top of the visualization, there is a legend. Users can (de)select the AOIs of interest by clicking the key in the legend. The corresponding parts of all Alpscarf visualizations are also highlighted simultaneously. Users can click on Alpscarf to select/deselect the AOIs of interest, as well as panning (click-and-drag), zooming (spin the wheel), and displaying tooltips (hover over).
 
 ## How to cite
 
