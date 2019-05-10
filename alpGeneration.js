@@ -1,6 +1,7 @@
 const yValue = d => d.seq_bar_length + d.re_reading_bar_length;
-const xValue = d => d.trial;
+//const xValue = d => d.trial;
 //const xValue = d => d.bar_position;
+const xWidth = d => d.dwell_duration_log;
 
 export const alpGen = (selection, props) => {
     const {
@@ -13,7 +14,8 @@ export const alpGen = (selection, props) => {
         setSelectedAOI,
         selectedAOI,
         alp_en,
-        normalized_view
+        normalized_view,
+        transition_focus_mode
     } = props;
 
     // select the data of the participant specified
@@ -33,17 +35,27 @@ export const alpGen = (selection, props) => {
             ? alpVizHeight - yScale(yValue(d))
             : alpVizHeight - yScale(1);
 
-    const xDomain = normalized_view
-        ? dataVis.map(xValue)
-        : d3.range(0, d3.max(data, xValue));
-
+    //const xDomain = normalized_view
+    //    ? dataVis.map(xValue)
+    //    : d3.range(0, d3.max(data, xValue));
+    //const xDomain = d3.range(0, d3.max(dataVis, xValue));
+    //const xScale = d3.scaleBand()
+    //    .domain(xDomain)
+    //    .range([0, alpVizWidth])
+    //    .padding(0);
     const yScale = d3.scaleLinear()
         .domain([0, maxSeqLength + maxReReadingLength])
         .range([alpVizHeight, 0]);
-    const xScale = d3.scaleBand()
-        .domain(xDomain)
-        .range([0, alpVizWidth])
-        .padding(0);
+
+    const xValue = d => transition_focus_mode
+        ? d.trial + 1
+        : d.bar_position + d.dwell_duration_log / 2;
+    const xValueMax = normalized_view
+        ? d3.max(dataVis, xValue)
+        : d3.max(data, xValue);
+    const xScale = d3.scaleLinear()
+        .domain([0, xValueMax])
+        .range([0, alpVizWidth]);
 
     const groups = selection.selectAll('g').data(dataVis);
     const groupEnter =
@@ -85,7 +97,10 @@ export const alpGen = (selection, props) => {
             //    )
             //.attr('x', d => xScale(xValue(d)))
             .attr('x', alpVizWidth)
-            .attr('width', xScale.bandwidth())
+            //.attr('width', xScale.bandwidth())
+            .attr('width', d => transition_focus_mode
+                ? xScale(1)
+                : xScale(xWidth(d)))
             .attr('stroke-width', '2')
         .merge(groups.select('.bars'))
             .on('click', d => setSelectedAOI(d.AOI))
@@ -113,10 +128,15 @@ export const alpGen = (selection, props) => {
             //        ? alpVizHeight - yScale(yValue(d))
             //        : alpVizHeight - yScale(1)
             //    )
-            .attr('width', xScale.bandwidth())
-            .attr('x', d => xScale(xValue(d)))
-            .attr('fill', d => palette(d.AOI))
-        ;
+            //.attr('width', xScale.bandwidth())
+            //.attr('x', d => xScale(xValue(d)))
+            .attr('width', d => transition_focus_mode
+                    ? xScale(1)
+                    : xScale(xWidth(d)))
+            .attr('x', d => transition_focus_mode
+                    ? xScale(xValue(d) - 1)
+                    : xScale(xValue(d) - xWidth(d)))
+            .attr('fill', d => palette(d.AOI));
 
     groupEnter
         .append('title')

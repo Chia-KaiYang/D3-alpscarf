@@ -106,7 +106,8 @@ const render = () => {
                 setSelectedAOI,
                 selectedAOI,
                 alp_en: true,
-                normalized_view: false
+                normalized_view: false,
+                transition_focus_mode: false
             });
     });
 
