@@ -60,3 +60,20 @@ text {
     fill: black;
     font-family: sans-serif;
 }
+#menus {
+    font-size: 2em;
+    text-align: left;
+}
+
+#menus select {
+    font-size: 2rem;
+}
+
+#menus select option {
+    font-size: 1rem;
+}
+
+span {
+    display: inline-block; /* change the display type           */
+    margin: 0px 30px;        /* apply the needed vertical margins */
+}

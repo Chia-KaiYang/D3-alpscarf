@@ -1,8 +1,9 @@
 import { alpGen } from './alpGeneration.js';
 import { colorLegend } from './colorLegend.js';
 import { loadAndProcessData } from './loadAndProcessData.js';
+import {dropdownMenu} from './dropdownMenu.js';
 
-const height = document.body.clientHeight;
+const height = document.body.clientHeight - 50;
 const width = document.body.clientWidth;
 const svg = d3.select('svg')
     .attr('width', width).attr('height', height);
@@ -93,7 +94,49 @@ const setSelectedAOI = aoi => {
     render();
 };
 
+let plot_type = 'alpscarf';
+let normalized_view = 'normalized';
+let focus_mode = 'transition-focus';
+
+const plot_type_clicked = value => {
+    plot_type = value;
+    render();
+};
+const normalized_view_clicked = value => {
+    normalized_view = value;
+    render();
+};
+const focus_mode_clicked = value => {
+    focus_mode = value;
+    render();
+};
+
+
 const render = () => {
+    d3.select('#plot_type-menu')
+        .call(dropdownMenu, {
+            //options: data.columns,
+            options: ['alpscarf', 'traditional scarf'],
+            onOptionClicked: plot_type_clicked,
+            selectedOption: plot_type
+        });
+
+    d3.select('#normalized_view-menu')
+        .call(dropdownMenu, {
+            //options: data.columns,
+            options: ['normalized', 'unnormalized'],
+            onOptionClicked: normalized_view_clicked,
+            selectedOption: normalized_view
+        });
+
+    d3.select('#focus_mode-menu')
+        .call(dropdownMenu, {
+            //options: data.columns,
+            options: ['transition-focus', 'duration-focus'],
+            onOptionClicked: focus_mode_clicked,
+            selectedOption: focus_mode
+        });
+
     pNameList.forEach((d, i) => {
         alpG[i]
             .call(alpGen, {
@@ -105,9 +148,9 @@ const render = () => {
                 alpVizHeight: alpVizHeight - alpSpacing,
                 setSelectedAOI,
                 selectedAOI,
-                alp_en: true,
-                normalized_view: false,
-                transition_focus_mode: false
+                alp_en: plot_type == 'alpscarf',
+                normalized_view: normalized_view == 'normalized',
+                transition_focus_mode: focus_mode == 'transition-focus'
             });
     });
 
