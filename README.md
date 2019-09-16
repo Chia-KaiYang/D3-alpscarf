@@ -48,5 +48,5 @@ In bibtex:
 
 ## See also
 
-* Paper and video previews [Alpscarf website](https://zpac.ch/alpscarf)
+* Paper and video previews [Alpscarf website](https://chia-kaiyang.github.io/project/alpscarf/)
 * R package of Alpscarf [R package](https://github.com/Chia-KaiYang/alpscarf)
