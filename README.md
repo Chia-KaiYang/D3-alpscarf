@@ -20,7 +20,7 @@ On top of the visualization, there is a legend. Users can (de)select the AOIs of
 If you use Alpscarf in your research, we would appreciate if you can insert the following citation
 
 
-> Chia-Kai Yang and Chat Wacharamanotham. 2018. Alpscarf: Augmenting Scarf Plots for Exploring Temporal Gaze Patterns. In Extended Abstracts of the 2018 CHI Conference on Human Factors in Computing Systems (CHI EA '18). ACM, New York, NY, USA, Paper LBW503, 6 pages. DOI: https://doi.org/10.1145/3170427.3188490
+> Chia-Kai Yang and Chat Wacharamanotham. 2018. Alpscarf: Augmenting Scarf Plots for Exploring Temporal Gaze Patterns. In Extended Abstracts of the 2018 CHI Conference on Human Factors in Computing Systems (CHI EA ’18). Association for Computing Machinery, New York, NY, USA, 1–6. DOI:https://doi.org/10.1145/3170427.3188490
 
 
 In bibtex:
