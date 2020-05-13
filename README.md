@@ -11,7 +11,7 @@ Find more information about Alpscrf at [R-alpscarf](https://github.com/Chia-KaiY
 To experience how the interactive visualization work, here is a runnable web application on [bl.ocks.org](https://bl.ocks.org/Chia-KaiYang/raw/cd34f16fd1a9df27a13a59045bd40c4d/)
 
 ## Usage
-At top there are three drop-down menus that allow users to specify visualization mode (e.g., alpscarf/traditional scarf, unnormalized/normalized view, transition-/duration-focus mode).
+At top there are three drop-down menus that allow users to specify visualization mode (e.g., alpscarf/traditional scarf/mountain only/valley only, unnormalized/normalized view, transition-/duration-focus mode).
 
 On top of the visualization, there is a legend. Users can (de)select the AOIs of interest by clicking the key in the legend. The corresponding parts of all Alpscarf visualizations are also highlighted simultaneously. Users can click on Alpscarf to select/deselect the AOIs of interest, as well as panning (click-and-drag), zooming (spin the wheel), and displaying tooltips (hover over).
 
@@ -26,24 +26,22 @@ If you use Alpscarf in your research, we would appreciate if you can insert the 
 In bibtex:
 
 ```
-@inproceedings{Yang:2018:AAS:3170427.3188490,
- author = {Yang, Chia-Kai and Wacharamanotham, Chat},
- title = {Alpscarf: Augmenting Scarf Plots for Exploring Temporal Gaze Patterns},
- booktitle = {Extended Abstracts of the 2018 CHI Conference on Human Factors in Computing Systems},
- series = {CHI EA '18},
- year = {2018},
- isbn = {978-1-4503-5621-3},
- location = {Montreal QC, Canada},
- pages = {LBW503:1--LBW503:6},
- articleno = {LBW503},
- numpages = {6},
- url = {http://doi.acm.org/10.1145/3170427.3188490},
- doi = {10.1145/3170427.3188490},
- acmid = {3188490},
- publisher = {ACM},
- address = {New York, NY, USA},
- keywords = {eye movement, scarf plot, transitions, visualization},
-} 
+@inproceedings{10.1145/3170427.3188490,
+author = {Yang, Chia-Kai and Wacharamanotham, Chat},
+title = {Alpscarf: Augmenting Scarf Plots for Exploring Temporal Gaze Patterns},
+year = {2018},
+isbn = {9781450356213},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3170427.3188490},
+doi = {10.1145/3170427.3188490},
+booktitle = {Extended Abstracts of the 2018 CHI Conference on Human Factors in Computing Systems},
+pages = {1–6},
+numpages = {6},
+keywords = {visualization, scarf plot, eye movement, transitions},
+location = {Montreal QC, Canada},
+series = {CHI EA ’18}
+}
 ```
 
 ## See also
