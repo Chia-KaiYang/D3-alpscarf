@@ -1,4 +1,4 @@
-const yValue = d => d.seq_bar_length + d.re_reading_bar_length;
+//const yValue = d => d.seq_bar_length + d.re_reading_bar_length;
 //const xValue = d => d.trial;
 //const xValue = d => d.bar_position;
 const xWidth = d => d.dwell_duration_log;
@@ -13,7 +13,7 @@ export const alpGen = (selection, props) => {
         alpVizHeight,
         setSelectedAOI,
         selectedAOI,
-        alp_en,
+        plot_type,
         normalized_view,
         transition_focus_mode
     } = props;
@@ -27,11 +27,19 @@ export const alpGen = (selection, props) => {
     const maxSeqLength = d3.max(data, d => d.seq_bar_length);
     const maxReReadingLength = d3.max(data, d => d.re_reading_bar_length);
 
+    const yValue = d => (plot_type == 'alpscarf')
+            ? d.seq_bar_length + d.re_reading_bar_length
+            : (plot_type == "mountain only")
+                ? d.seq_bar_length
+                : (plot_type == 'valley only')
+                    ? d.re_reading_bar_length + 1
+                    : 1;
+
     const yPosition = d => d.seq_bar_length + maxReReadingLength;
-    const scarfBarYPosition = d => alp_en
+    const scarfBarYPosition = d => (plot_type == 'alpscarf' || plot_type == 'mountain only')
             ? yScale(yPosition(d))
             : yScale(maxReReadingLength + 1);
-    const scarfBarHeight = d => alp_en
+    const scarfBarHeight = d => (plot_type == 'alpscarf' || plot_type == 'mountain only' || plot_type == 'valley only')
             ? alpVizHeight - yScale(yValue(d))
             : alpVizHeight - yScale(1);
 

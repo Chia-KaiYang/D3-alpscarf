@@ -116,7 +116,7 @@ const render = () => {
     d3.select('#plot_type-menu')
         .call(dropdownMenu, {
             //options: data.columns,
-            options: ['alpscarf', 'traditional scarf'],
+            options: ['alpscarf', 'traditional scarf', 'mountain only', 'valley only'],
             onOptionClicked: plot_type_clicked,
             selectedOption: plot_type
         });
@@ -148,7 +148,8 @@ const render = () => {
                 alpVizHeight: alpVizHeight - alpSpacing,
                 setSelectedAOI,
                 selectedAOI,
-                alp_en: plot_type == 'alpscarf',
+                //alp_en: plot_type == 'alpscarf',
+                plot_type,
                 normalized_view: normalized_view == 'normalized',
                 transition_focus_mode: focus_mode == 'transition-focus'
             });
