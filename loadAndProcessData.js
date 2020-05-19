@@ -94,7 +94,7 @@ function alpscarf_add_height(data, aoi_names_pages_seq){
 
         // calculate revisiting score
         for (let i = 0; i < AOI_seq.length; i++) {
-            if (i <= AOI_seq.length - w + 1){
+            if (i < AOI_seq.length - w + 1){
                 if (AOI_seq[i] == AOI_seq[i+w-1]){
                     for (let j = i; j <= i + w - 1; j++){
                         dataVis[j].revisiting_score++;
@@ -105,8 +105,8 @@ function alpscarf_add_height(data, aoi_names_pages_seq){
 
         // calculate conformity score
         for (let i = 0; i < AOI_seq.length; i++) {
-            if (i <= AOI_seq.length- s_min + 1){
-                for (let s = s_min; s <= Math.min(n_AOI_order, AOI_seq.length - i + 1); s++){
+            if (i < AOI_seq.length- s_min + 1){
+                for (let s = s_min; s < Math.min(n_AOI_order, AOI_seq.length - i + 1); s++){
                     if (AOI_order_seq[i + s - 1] - AOI_order_seq[i + s - 2] == 1){
                         for (let j = i; j <= i + s - 1; j++){
                             dataVis[j].conformity_score++;
