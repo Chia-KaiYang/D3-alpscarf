@@ -38,8 +38,8 @@ loadAndProcessData().then(loadedData => {
     const colorValue = d => d.color;
 
     palette = d3.scaleOrdinal()
-        .domain(loadedData[0].map(AOIValue))
-        .range(loadedData[0].map(colorValue));
+        .domain(loadedData[2].map(AOIValue))
+        .range(loadedData[2].map(colorValue));
 
     data = loadedData[1];
 

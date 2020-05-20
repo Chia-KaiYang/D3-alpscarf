@@ -1,6 +1,7 @@
 export const loadAndProcessData = () =>
     Promise.all([
-        d3.csv('aoi_names_pages_seq_sc5.csv'),
+//        d3.csv('aoi_names_pages_seq_sc5.csv'),
+        d3.csv('aoi_names_pages_seq_sc5.repeatAOI.csv'),
         //d3.csv('eye_movement_data_systhetic_sc5_alp.csv'),
         d3.csv('eye_movement_data_systhetic_sc5.csv'),
 //        d3.csv('expected_aoi_sequence.csv'),
@@ -12,6 +13,7 @@ export const loadAndProcessData = () =>
 //        d3.csv('alp_video_prototype_eye_movement.hack.csv'),
 //        d3.csv('video_prototype_color.csv'),
 //        d3.csv('alp_video_prototype_eye_movement.csv'),
+        d3.csv('aoi_color_sc5.csv'),
     ]).then (loadedData => {
 
         loadedData[0]. forEach(d => {
