@@ -75,12 +75,12 @@ function alpscarf_add_height(data, aoi_names_pages_seq){
         dataVis = data.filter(d => d.p_name === a_p_name);
 
         // left-join dataVis and aoi_expected_visiting_order (AOI_order)
-        dataVis = dataVis.map(a_dwell =>
+/*        dataVis = dataVis.map(a_dwell =>
             aoi_names_pages_seq.some(an_aoi => an_aoi.AOI === a_dwell.AOI)
                 ? aoi_names_pages_seq.filter(an_aoi => an_aoi.AOI === a_dwell.AOI).map(an_aoi => ({...an_aoi, ...a_dwell}))
                 : {...a_dwell})
             .reduce((a,b) => a.concat(b), []);
-
+*/
 
         // initialize revisiting and conformity score
         dataVis.forEach(d => {
@@ -93,6 +93,13 @@ function alpscarf_add_height(data, aoi_names_pages_seq){
         const AOI_order = d => d.AOI_order;
         const AOI_order_seq = dataVis.map(AOI_order);
         const n_AOI_order = aoi_names_pages_seq.map(d => d.AOI_order).length;
+
+        // generate the sequence of interest in string
+        const seq_of_interest = aoi_names_pages_seq
+            .filter(d => d.AOI_order > 0)
+            .sort(function(a, b){return a.AOI_order - b.AOI_order})
+            .map(AOI_name)
+            .join("_").concat("_");
 
         // calculate revisiting score
         for (let i = 0; i < AOI_seq.length; i++) {
@@ -109,9 +116,21 @@ function alpscarf_add_height(data, aoi_names_pages_seq){
         for (let i = 0; i < AOI_seq.length; i++) {
             if (i < AOI_seq.length- s_min + 1){
                 for (let s = s_min; s <= Math.min(n_AOI_order, AOI_seq.length - i); s++){
-                    if (AOI_order_seq[i + s - 1] - AOI_order_seq[i + s - 2] == 1){
+
+                    // generate the local sequence to compare (with seq_of_interest)
+                    const seq_to_compare = AOI_seq.slice(i, i + s)
+                        .join("_").concat("_");
+
+                    // count the frequency of seq_to_compare in seq_of_interest
+                    const rgxp = new RegExp(seq_to_compare, "g");
+                    const freq_seq = (seq_of_interest.match(rgxp) || []).length;
+
+                    //if (AOI_order_seq[i + s - 1] - AOI_order_seq[i + s - 2] == 1){
+                    if (freq_seq >= 1){
                         for (let j = i; j <= i + s - 1; j++){
-                            dataVis[j].conformity_score++;
+                            //dataVis[j].conformity_score++;
+                            dataVis[j].conformity_score += freq_seq;
+
                         }
                     } else break;
                 }
