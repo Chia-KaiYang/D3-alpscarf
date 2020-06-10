@@ -1,63 +1,21 @@
-export const loadAndProcessData = () =>
-    Promise.all([
-//        d3.csv('aoi_names_pages_seq_sc5.csv'),
-        d3.csv('aoi_names_pages_seq_sc5.repeatAOI.csv'),
-        //d3.csv('eye_movement_data_systhetic_sc5_alp.csv'),
-        d3.csv('eye_movement_data_systhetic_sc5.csv'),
-//        d3.csv('expected_aoi_sequence.csv'),
-//        d3.csv('exchange_cartridge_AOI_Set3_3Participants_alp.csv'),
-//        d3.csv('aoi_order_color.csv'),
-//        d3.csv('alpAllRaw.csv'),
-//        d3.csv('alpAll.csv'),
-//        d3.csv('video_prototype_color.hack.csv'),
-//        d3.csv('alp_video_prototype_eye_movement.hack.csv'),
-//        d3.csv('video_prototype_color.csv'),
-//        d3.csv('alp_video_prototype_eye_movement.csv'),
-        d3.csv('aoi_color_sc5.csv'),
-    ]).then (loadedData => {
+export const preProcessData = (props) => {
+    const {
+        data,
+        aoi_names_pages_seq,
+        w
+    } = props;
 
-        loadedData[0]. forEach(d => {
-            d.AOI_order = +d.AOI_order;
-        });
-/*
-        loadedData[1].forEach(d => {
-            //0: "p_name"
-            //1: "AOI"
-            d.dwell_duration = +d.dwell_duration;
-            d.conformity_score = +d.conformity_score;
-            d.revisiting_score = +d.revisiting_score;
-            d.seq_bar_length = +d.seq_bar_length;
-            d.re_reading_bar_length = +d.re_reading_bar_length;
-            d.trial = +d.trial;
-            d.dwell_duration_log = +d.dwell_duration_log;
-            d.bar_position = +d.bar_position;
-            //10: "dwell_lt_100ms"
-        });
-*/
-        loadedData[1].forEach(d => {
-            //AOI
-            //d.dwell_duration = +d.dwell_duration;
-            d.FixationDuration = +d.FixationDuration;
-            //p_name
-            //group
-        });
+    const processedData = alpscarf_add_height(alpscarf_add_width(merge_sequence(data)), aoi_names_pages_seq, w);
 
-        // merge fixations into dwell + calculate width + calculate height
-        //loadedData[1] = alpscarf_add_height(alpscarf_add_width(merge_sequence(loadedData[1])), loadedData[0]);
+    return processedData;
+};
 
-        // try to parse data into the data structure in RTG
-        //readData(loadedData[1], false);
-        // it works!! with some adaptations though :)
-
-        return loadedData;
-    });
-
-function alpscarf_add_height(data, aoi_names_pages_seq){
+function alpscarf_add_height(data, aoi_names_pages_seq, w){
     // restore result with height information
     let result = [];
 
     // parameter settings
-    const w = 3;
+    //const w = 3;
     const s_min = 2;
     const incr_re_reading_length = 0.3;
     const scale_factor = 0.2;
@@ -75,12 +33,12 @@ function alpscarf_add_height(data, aoi_names_pages_seq){
         dataVis = data.filter(d => d.p_name === a_p_name);
 
         // left-join dataVis and aoi_expected_visiting_order (AOI_order)
-/*        dataVis = dataVis.map(a_dwell =>
-            aoi_names_pages_seq.some(an_aoi => an_aoi.AOI === a_dwell.AOI)
-                ? aoi_names_pages_seq.filter(an_aoi => an_aoi.AOI === a_dwell.AOI).map(an_aoi => ({...an_aoi, ...a_dwell}))
-                : {...a_dwell})
-            .reduce((a,b) => a.concat(b), []);
-*/
+        /*        dataVis = dataVis.map(a_dwell =>
+                    aoi_names_pages_seq.some(an_aoi => an_aoi.AOI === a_dwell.AOI)
+                        ? aoi_names_pages_seq.filter(an_aoi => an_aoi.AOI === a_dwell.AOI).map(an_aoi => ({...an_aoi, ...a_dwell}))
+                        : {...a_dwell})
+                    .reduce((a,b) => a.concat(b), []);
+        */
 
         // initialize revisiting and conformity score
         dataVis.forEach(d => {

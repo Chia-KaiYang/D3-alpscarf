@@ -1,7 +1,9 @@
 import { alpGen } from './alpGeneration.js';
 import { colorLegend } from './colorLegend.js';
 import { loadAndProcessData } from './loadAndProcessData.js';
-import {dropdownMenu} from './dropdownMenu.js';
+import { dropdownMenu } from './dropdownMenu.js';
+import { preProcessData } from './preProcessData.js';
+
 
 const height = document.body.clientHeight - 50;
 const width = document.body.clientWidth;
@@ -30,8 +32,10 @@ const legendG = svg.append('g')
 let alpG = [];
 
 // restore state
-let data;
+let rawData;
+let AOI_order;
 let palette;
+let data;
 let pNameList;
 loadAndProcessData().then(loadedData => {
     const AOIValue = d => d.AOI;
@@ -41,7 +45,15 @@ loadAndProcessData().then(loadedData => {
         .domain(loadedData[2].map(AOIValue))
         .range(loadedData[2].map(colorValue));
 
-    data = loadedData[1];
+    //data = loadedData[1];
+    AOI_order = loadedData[0];
+    rawData = loadedData[1];
+    data = preProcessData(
+        {
+            data: rawData,
+            aoi_names_pages_seq: AOI_order,
+            w: 3
+        });
 
     // generate list of unique p_name
     const pName = data.map(d => d.p_name);
