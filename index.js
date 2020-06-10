@@ -109,6 +109,7 @@ const setSelectedAOI = aoi => {
 let plot_type = 'alpscarf';
 let normalized_view = 'normalized';
 let focus_mode = 'transition-focus';
+let w = 3;
 
 const plot_type_clicked = value => {
     plot_type = value;
@@ -122,7 +123,16 @@ const focus_mode_clicked = value => {
     focus_mode = value;
     render();
 };
-
+const w_clicked = value => {
+    w = +value;
+    data = preProcessData(
+        {
+            data: rawData,
+            aoi_names_pages_seq: AOI_order,
+            w
+        });
+    render();
+};
 
 const render = () => {
     d3.select('#plot_type-menu')
@@ -147,6 +157,14 @@ const render = () => {
             options: ['transition-focus', 'duration-focus'],
             onOptionClicked: focus_mode_clicked,
             selectedOption: focus_mode
+        });
+
+    d3.select('#w-menu')
+        .call(dropdownMenu, {
+            //options: data.columns,
+            options: [3, 4, 5, 6, 7, 8],
+            onOptionClicked: w_clicked,
+            selectedOption: w
         });
 
     pNameList.forEach((d, i) => {
